@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808014019) do
+ActiveRecord::Schema.define(version: 20140904205622) do
 
   create_table "posts", force: true do |t|
     t.datetime "created_at"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140808014019) do
     t.string   "token"
     t.text     "comments"
     t.string   "imagem"
+    t.string   "gcm_token"
   end
 
 end

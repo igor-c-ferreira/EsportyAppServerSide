@@ -1,3 +1,5 @@
+require 'gcm'
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
@@ -30,7 +32,13 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
 
-        enviar_push_silencioso @post.token
+        if @post.token.blank? == false
+            enviar_push_silencioso @post.token
+        end
+        
+        if @post.gcm_token.blank? == false
+            enviar_gcm_push @post.gcm_token, @post.comments
+        end
 
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
@@ -102,7 +110,18 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:imagem, :data_hora, :autor, :comments, :token)
+        params.require(:post).permit(:imagem, :data_hora, :autor, :comments, :token, :gcm_token)
+    end
+
+    def enviar_gcm_push(token,comment)
+        gcm = GCM.new("AIzaSyDDzENcliLUpOWpXn6Znkvo-2c_uqZeZT4")
+        puts "GCM:"
+        puts token
+        puts comment
+        registration_ids= [token]
+        options = {data: {message: comment, badge:1}, collapse_key: "new_message"}
+        puts options
+        response = gcm.send(registration_ids, options)
     end
 
     def enviar_push_silencioso(token)
@@ -110,12 +129,18 @@ class PostsController < ApplicationController
       # detalhes de como gerar em: https://developer.apple.com/notifications/
       APNS.pem = "#{Rails.root}/config/apple_apns/cert.pem"
 
+    puts "APNS:"
+    puts token
+
       # push minimo para silent push
-      n1 = APNS::Notification.new(token, :content_available => :true)
+      # n1 = APNS::Notification.new(token, :content_available => :true)
 
       # descomente a linha para enviar um push normal
-      # n1 = APNS::Notification.new(token, :alert => 'Novo post disponível!', :badge => 1, :sound => 'default')
+      n1 = APNS::Notification.new(token, :alert => 'Novo post disponível!', :badge => 5, :sound => 'default')
       APNS.send_notifications([n1])
+      
+      
+      
     end
 
     # Monta uma hash contendo dados aleatorios para simular um post
