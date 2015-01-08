@@ -119,7 +119,11 @@ class PostsController < ApplicationController
         puts token
         puts comment
         registration_ids= [token]
-        options = {data: {message: comment, badge:1}, collapse_key: "new_message"}
+        if comment.blank? == false
+            options = {data: {message: comment, badge:1}, collapse_key: "new_message"}
+        else
+            options = {collapse_key: "new_message"}
+        end
         puts options
         response = gcm.send(registration_ids, options)
     end
