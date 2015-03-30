@@ -23,6 +23,7 @@ Ele serve para simular um serviço remoto usado para alimentar o aplicativo Espo
 
 5. Execute os comandos:
 ```
+    $ bundle install
     $ rake db:migrate
     $ rails server
 ```
