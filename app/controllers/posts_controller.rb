@@ -33,7 +33,7 @@ class PostsController < ApplicationController
       if @post.save
 
         if @post.token.blank? == false
-            enviar_push_silencioso @post.token
+            enviar_push_silencioso @post.token, @post.comments
         end
         
         if @post.gcm_token.blank? == false
@@ -128,7 +128,7 @@ class PostsController < ApplicationController
         response = gcm.send(registration_ids, options)
     end
 
-    def enviar_push_silencioso(token)
+    def enviar_push_silencioso(token,comment)
       # troque pelo seu certificado PEM
       # detalhes de como gerar em: https://developer.apple.com/notifications/
       APNS.pem = "#{Rails.root}/config/apple_apns/cert.pem"
@@ -140,7 +140,11 @@ class PostsController < ApplicationController
       # n1 = APNS::Notification.new(token, :content_available => :true)
 
       # descomente a linha para enviar um push normal
-      n1 = APNS::Notification.new(token, :alert => 'Novo post disponível!', :badge => 5, :sound => 'default')
+      if comment.blank? == false
+          n1 = APNS::Notification.new(token, :alert => comment, :badge => 5, :sound => 'default')
+      else
+          n1 = APNS::Notification.new(token, :alert => 'Novo post disponível!', :badge => 5, :sound => 'default')
+      end
       APNS.send_notifications([n1])
       
       
