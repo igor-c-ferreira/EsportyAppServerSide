@@ -138,18 +138,18 @@ class PostsController < ApplicationController
 
       # push minimo para silent push
       # n1 = APNS::Notification.new(token, :content_available => :true)
-      silent = false
+      #silent = false
       #silent = true
 
-      if silent
-          n1 = APNS::Notification.new(token, :content_available => :true)
-      else
+#if silent
+          #n1 = APNS::Notification.new(token, :content_available => :true)
+          #else
             if comment.blank? == false
                 n1 = APNS::Notification.new(token, :alert => comment, :badge => 5, :sound => 'default')
             else
                 n1 = APNS::Notification.new(token, :alert => 'Novo post disponível!', :badge => 5, :sound => 'default')
             end
-      end
+            #end
       APNS.send_notifications([n1])
       
       
