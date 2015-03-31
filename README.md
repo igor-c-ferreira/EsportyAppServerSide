@@ -61,7 +61,7 @@ Ele serve para simular um serviço remoto usado para alimentar o aplicativo Espo
 ## Dicas
 
 - Caso o remote notification não chegue, verifique se os certificados foram gerados corretamente.
-- Teste o serviço de push, usando um Push Notification comum, comentando a [linha 114](https://github.com/ghvillasboas/EsportyAppServerSide/blob/master/app/controllers/posts_controller.rb#L114) do arquivo /app/controlers/posts_controller.rb e descomentando a [linha 117](https://github.com/ghvillasboas/EsportyAppServerSide/blob/master/app/controllers/posts_controller.rb#L117). Crie um novo post. Isto fará com que o serviço envie um push comum ao invés de um push silencioso. Descomente/comente novamente as linhas para usar o push remoto.
+- Teste o serviço de push, usando um Push Notification comum, comentando a [linha 142](https://github.com/ghvillasboas/EsportyAppServerSide/blob/master/app/controllers/posts_controller.rb#L142) do arquivo /app/controlers/posts_controller.rb e descomentando a [linha 141](https://github.com/ghvillasboas/EsportyAppServerSide/blob/master/app/controllers/posts_controller.rb#L141). Crie um novo post. Isto fará com que o serviço envie um push comum ao invés de um push silencioso. Descomente/comente novamente as linhas para usar o push remoto.
 
 ## Configuração testada
 
