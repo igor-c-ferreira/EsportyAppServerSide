@@ -19,20 +19,22 @@ Ele serve para simular um serviço remoto usado para alimentar o aplicativo Espo
 
 4. Mova o arquivo *certs.pem* para a pasta /config/apple_apns/ do repositório clonado. Caso decida colocar outro nome no seu arquivo .pem, lembre-se de atualizar o arquivo /app/controlers/posts_controller.rb ([linha 111](https://github.com/ghvillasboas/EsportyAppServerSide/blob/master/app/controllers/posts_controller.rb#L111)).
 
-4. Via terminal acesse o diretório do repositório clonado
+5. Para habilitar o use de FCM, atualize o arquivo /config/grm/grm_config_base.rb([linha 3](https://github.com/ghvillasboas/EsportyAppServerSide/blob/master/config/grm/grm_config_base.rb#L3)), e renomeie o arquivo para /config/grm/grm_config.rb
 
-5. Execute os comandos:
+6. Via terminal acesse o diretório do repositório clonado
+
+7. Execute os comandos:
 ```
     $ bundle install
     $ rake db:migrate
     $ rails server
 ```
 
-6. No seu browser acesse o endereço: http://localhost:3000. Sua tela deve ser semelhante à exibida abaixo:
+8. No seu browser acesse o endereço: http://localhost:3000. Sua tela deve ser semelhante à exibida abaixo:
 
 ![Acesso backend Esporty App](https://raw.github.com/ghvillasboas/EsportyAppServerSide/master/app/assets/images/esporty1.png)
 
-7. Não existe passo 7. :)
+9. Não existe passo 9. :)
 
 ## Como enviar um Remote Notification
 
