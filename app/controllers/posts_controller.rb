@@ -1,4 +1,5 @@
 require 'gcm'
+require File.expand_path('../../../config/grm/grm_config.rb', __FILE__)
 
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
@@ -114,8 +115,8 @@ class PostsController < ApplicationController
     end
 
     def enviar_gcm_push(token,comment)
-        gcm = GCM.new("AIzaSyDDzENcliLUpOWpXn6Znkvo-2c_uqZeZT4")
-        puts "GCM:"
+        gcm = GCM.new(Esporty::GCMConfig::GCM_KEY)
+        puts "GCM"
         puts token
         puts comment
         registration_ids= [token]

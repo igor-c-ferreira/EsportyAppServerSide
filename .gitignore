@@ -17,3 +17,4 @@
 
 # Ignore certs apns
 /config/apple_apns/cert.pem
+/config/grm/grm_config.rb
