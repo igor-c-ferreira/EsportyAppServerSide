@@ -144,12 +144,12 @@ class PostsController < ApplicationController
 
     if silent
           n1 = APNS::Notification.new(token, :content_available => :true)
+    else
+          if comment.blank? == false
+              n1 = APNS::Notification.new(token, :alert => comment, :badge => 5, :sound => 'default')
           else
-            if comment.blank? == false
-                n1 = APNS::Notification.new(token, :alert => comment, :badge => 5, :sound => 'default')
-            else
-                n1 = APNS::Notification.new(token, :alert => 'Novo post disponível!', :badge => 5, :sound => 'default')
-            end
+              n1 = APNS::Notification.new(token, :alert => 'Novo post disponível!', :badge => 5, :sound => 'default')
+          end
     end
       APNS.send_notifications([n1])
       
